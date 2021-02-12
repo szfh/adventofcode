@@ -12,13 +12,22 @@ def part1(data_tidy, preamble=25):
         n = data_tidy[i]
         valid = False
         for a, b in combinations:
-            print(a, b)
             if n == (a+b):
                 valid = True
                 i += 1
                 break
         if valid == False:
             return(n)
+
+def part2(data_tidy):
+    number = part1(data_tidy)
+    r = 2
+    while True:
+        for i in range(r,len(data_tidy)):
+            number_set = list(itertools.islice(data_tidy,i-r,i))
+            if sum(number_set) == number:
+                return(max(number_set)+min(number_set))
+        r += 1
 
 def main():
     file = "H:\\Projects\\adventofcode\\data\\day9.txt"
@@ -28,7 +37,7 @@ def main():
         data_tidy = make_tidy_data(data_raw)
 
         print('part 1 solution: %d' %part1(data_tidy))
-        # print('part 2 solution: %d' %part2(data_tidy))
+        print('part 2 solution: %d' %part2(data_tidy))
 
 if __name__ == "__main__":
     main()
