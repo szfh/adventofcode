@@ -1,11 +1,13 @@
+from collections import Counter
+
 def make_tidy_data(data_raw):
     data_split = data_raw.split("\n")
-    data_tidy = [int(n) for n in data_split]
-    return(data_tidy)
-
-def part1(data):
+    data = [int(n) for n in data_split]
     data.append(0)
     data.append(max(data)+3)
+    return(data)
+
+def part1(data):
     differences = [0, 0, 0]
     data_sorted = sorted(data)
     for i in range(1,len(data_sorted)):
@@ -17,6 +19,14 @@ def part1(data):
             differences[2] += 1
     return(differences[0]*differences[2])
 
+def part2(data):
+    data_sorted = sorted(data)
+    c = Counter()
+    c[0] = 1
+    for j in data_sorted[1:]:
+        c[j] = c[j-1] + c[j-2] + c[j-3]
+    return(c[data_sorted[-1]])
+
 def main():
     file = "H:\\Projects\\adventofcode\\data\\day10.txt"
 
@@ -25,7 +35,7 @@ def main():
         data = make_tidy_data(data_raw)
 
         print('part 1 solution: %d' %part1(data))
-        # print('part 2 solution: %d' %part2(data_tidy))
+        print('part 2 solution: %d' %part2(data))
 
 if __name__ == "__main__":
     main()
