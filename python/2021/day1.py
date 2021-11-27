@@ -8,7 +8,7 @@ Created on Sat Dec  5 09:52:44 2020
 import numpy as np
 from itertools import combinations
 
-file = "H:\\Projects\\adventofcode\\data\\day1.txt"
+file = "H:\\Projects\\adventofcode\\data\\2021\\day1.txt"
 
 with open(file,'r') as f:
     data = f.read().splitlines()

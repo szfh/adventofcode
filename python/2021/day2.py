@@ -5,7 +5,7 @@ Created on Sat Dec  5 10:55:56 2020
 @author: samue
 """
 
-file = "H:\\Projects\\adventofcode\\data\\day2.txt"
+file = "H:\\Projects\\adventofcode\\data\\2021\\day2.txt"
 
 with open(file,'r') as f:
     data = f.read().splitlines()

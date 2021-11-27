@@ -68,7 +68,7 @@ def part2(data_tidy):
     return count
 
 def main():
-    file = "H:\\Projects\\adventofcode\\data\\day7.txt"
+    file = "H:\\Projects\\adventofcode\\data\\2021\\day7.txt"
 
     with open(file,'r') as f:
         data_raw = f.read()

@@ -28,7 +28,7 @@ def part2(data):
     return(c[data_sorted[-1]])
 
 def main():
-    file = "H:\\Projects\\adventofcode\\data\\day10.txt"
+    file = "H:\\Projects\\adventofcode\\data\\2021\\day10.txt"
 
     with open(file,'r') as f:
         data_raw = f.read()
