@@ -7,11 +7,16 @@ def make_tidy_data(data_raw):
 def part1(data):
     fuel = []
     [fuel.append((int(element) // 3) - 2) for element in data]
-    sum(fuel)
     return(sum(fuel))
 
 def part2(data):
-    return(2)
+    fuel = []
+    for element in data:
+        fuel_needed = int(element)
+        while fuel_needed > 0:
+            fuel_needed = (fuel_needed // 3) - 2
+            fuel.append(fuel_needed)
+    return (sum(fuel))
 
 def main():
     file = os.path.abspath("../../data/2020/day1.txt")
