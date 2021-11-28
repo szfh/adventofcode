@@ -51,7 +51,7 @@ def part2(data):
     return(departure)
 
 def main():
-    file = os.path.abspath("../../data/2021/day13.txt")
+    file = os.path.abspath("../../data/2020/day13.txt")
     print(sys.version)
 
     with open(file,'r') as f:

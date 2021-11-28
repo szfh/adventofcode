@@ -88,7 +88,7 @@ def part2(data):
             data = data_new
 
 def main():
-    file = "H:\\Projects\\adventofcode\\data\\2021\\day11.txt"
+    file = "H:\\Projects\\adventofcode\\data\\2020\\day11.txt"
 
     with open(file,'r') as f:
         data_raw = f.read()

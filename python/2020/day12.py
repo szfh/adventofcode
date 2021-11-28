@@ -66,7 +66,7 @@ def part2(data):
     return(find_manhattan_distance(x, y))
 
 def main():
-    file = os.path.abspath("../../data/2021/day12.txt")
+    file = os.path.abspath("../../data/2020/day12.txt")
 
     with open(file,'r') as f:
         data_raw = f.read()

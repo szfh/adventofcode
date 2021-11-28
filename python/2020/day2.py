@@ -1,42 +1,54 @@
-import os
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec  5 10:55:56 2020
 
-def make_tidy_data(data_raw):
-    data_split = data_raw.split(",")
-    data_tidy = [int(i) for i in data_split]
-    return(data_tidy)
+@author: samue
+"""
 
-def part1(data):
-    data_new = data.copy()
-    data_new[1] = 12
-    data_new[2] = 2
-    i=0
-    while True:
-        if data_new[i] == 1:
-            data_new[data_new[i+3]] = data_new[data_new[i+1]] + data_new[data_new[i+2]]
-            i+=4
-        elif data_new[i] == 2:
-            data_new[data_new[i + 3]] = data_new[data_new[i+1]] * data_new[data_new[i+2]]
-            i += 4
-        elif data_new[i] == 99:
-            print("99")
-            break
-        else:
-            print("shouldn't be here")
-    return(data_new[0])
+file = "H:\\Projects\\adventofcode\\data\\2020\\day2.txt"
 
-def part2(data):
-    return(2)
+with open(file,'r') as f:
+    data = f.read().splitlines()
 
-def main():
-    file = os.path.abspath("../../data/2020/day2.txt")
+def make_tidy_lines(line):
+    line_tidy = line
+    line_tidy = line_tidy.replace(':','')
+    line_tidy = line_tidy.replace('-',' ')
+    line_tidy = line_tidy.split(' ')
+    return(line_tidy)
 
-    with open(file,'r') as f:
-        data_raw = f.read()
+data_tidy = [make_tidy_lines(line) for line in data]
 
-    data = make_tidy_data(data_raw)
+def check_password1(line): 
+    min_use = int(line[0])
+    max_use = int(line[1])
+    letter = line[2]
+    pw = line[3]
+        
+    count = pw.count(letter)
+    
+    if(count >= min_use and count <= max_use):
+        return(True)
+    else:
+        return(False)
+    
+valid_passwords1 = list(filter(check_password1, data_tidy))
+n_valid1 = len(valid_passwords1)
+print('part 1 solution: %d' %(n_valid1))
 
-    print('part 1 solution: %d' %part1(data))
-    print('part 2 solution: %d' %part2(data))
+def check_password2(line): 
+    l1 = int(line[0])-1
+    l2 = int(line[1])-1
+    letter = line[2]
+    pw = line[3]
+        
+    if(pw[l1] == letter and pw[l2] != letter):
+        return(True)
+    elif(pw[l1] != letter and pw[l2] == letter):
+        return(True)
+    else:
+        return(False)
 
-if __name__ == "__main__":
-    main()
+valid_passwords2 = list(filter(check_password2, data_tidy))
+n_valid2 = len(valid_passwords2)
+print('part 2 solution: %d' %(n_valid2))

@@ -7,7 +7,7 @@ Created on Sat Dec  5 12:12:37 2020
 
 # import numpy as np
 
-file = "H:\\Projects\\adventofcode\\data\\2021\\day3.txt"
+file = "H:\\Projects\\adventofcode\\data\\2020\\day3.txt"
 
 with open(file,'r') as f:
     data = f.read().splitlines()

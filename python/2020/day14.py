@@ -48,7 +48,7 @@ def part2(data):
     return(2)
 
 def main():
-    file = os.path.abspath("../../data/2021/day14.txt")
+    file = os.path.abspath("../../data/2020/day14.txt")
 
     with open(file,'r') as f:
         data_raw = f.read()

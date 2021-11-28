@@ -7,7 +7,7 @@ Created on Sat Dec  5 16:45:44 2020
 
 import re
 
-file = "H:\\Projects\\adventofcode\\data\\2021\\day4.txt"
+file = "H:\\Projects\\adventofcode\\data\\2020\\day4.txt"
 
 with open(file,'r') as f:
     data_raw = f.read()

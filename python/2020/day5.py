@@ -5,7 +5,7 @@ Created on Sun Dec  6 10:09:34 2020
 @author: samue
 """
 
-file = "H:\\Projects\\adventofcode\\data\\2021\\day5.txt"
+file = "H:\\Projects\\adventofcode\\data\\2020\\day5.txt"
 
 with open(file,'r') as f:
     data_raw = f.read()

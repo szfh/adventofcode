@@ -30,7 +30,7 @@ def part2(data_tidy):
         r += 1
 
 def main():
-    file = "H:\\Projects\\adventofcode\\data\\2021\\day9.txt"
+    file = "H:\\Projects\\adventofcode\\data\\2020\\day9.txt"
 
     with open(file,'r') as f:
         data_raw = f.read()
