@@ -13,7 +13,10 @@ def part1(data):
     return(count)
 
 def part2(data):
-    return(2)
+    d1 = zip(data,data[1:],data[2:])
+    d2 = zip(data[1:], data[2:], data[3:])
+    count = sum(sum(y)>sum(x) for x, y in zip(d1,d2))
+    return(count)
 
 def main():
     file = os.path.abspath("../../data/2021/day1.txt")
