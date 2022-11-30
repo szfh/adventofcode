@@ -15,8 +15,6 @@ def part1(data):
         match dir:
             case 'forward':
                 h+=n
-            case 'backward':
-                h-=n
             case 'up':
                 d-=n
             case 'down':
@@ -24,7 +22,17 @@ def part1(data):
     return(h*d)
 
 def part2(data):
-    return(2)
+    h,d,aim = 0,0,0
+    for dir, n in data:
+        match dir:
+            case 'forward':
+                h+=n
+                d+=n*aim
+            case 'up':
+                aim-=n
+            case 'down':
+                aim+=n
+    return(h*d)
 
 def main():
     file = os.path.abspath("../../data/2021/day2.txt")
