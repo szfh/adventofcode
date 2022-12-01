@@ -11,17 +11,24 @@ def make_tidy_data(data_raw):
     data_int = []
     for l in data_groups_split:
         data_int.append([int(n) for n in l])
-    return (data_int)
+    return data_int
+
+
+def top_elf(data: list, n: int) -> list:
+    sums = [sum(l) for l in data]
+    sorted_sums = sorted(sums, reverse=True)
+    total = sum(sorted_sums[0:n])
+    return total
 
 
 def part1(data: list) -> int:
-    sums = [sum(l) for l in data]
-    top_sum = max(sums)
-    return (top_sum)
+    total = top_elf(data, n=1)
+    return total
 
 
-def part2(data):
-    return (2)
+def part2(data: list) -> int:
+    total = top_elf(data, n=3)
+    return total
 
 
 def main():
