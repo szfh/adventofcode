@@ -24,6 +24,13 @@ def fully_contains(line0, line1) -> bool:
         return False
 
 
+def partially_contains(line0, line1) -> bool:
+    if (line1[1] < line0[0]) | (line1[0] > line0[1]):
+        return False
+    else:
+        return True
+
+
 def part1(data):
     count = 0
     for line in data:
@@ -33,7 +40,11 @@ def part1(data):
 
 
 def part2(data):
-    return 2
+    count = 0
+    for line in data:
+        if partially_contains(line[0], line[1]) | fully_contains(line[1], line[0]):
+            count += 1
+    return count
 
 
 def main():
