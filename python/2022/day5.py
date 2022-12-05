@@ -33,15 +33,25 @@ def move_boxes(boxes: list, move: list) -> list:
     return boxes
 
 
-def part1(length: int, boxes: list, moves: list) -> str:
+def move_boxes2(boxes: list, move: list) -> list:
+    b = list(boxes[move[1] - 1][move[0] * -1:])
+    boxes[move[1] - 1] = boxes[move[1] - 1][:move[0] * -1]
+    boxes[move[2] - 1] = boxes[move[2] - 1] + b
+    return boxes
+
+
+def part1(boxes: list, moves: list) -> str:
     for move in moves:
         boxes = move_boxes(boxes, move)
     end_state = ''.join([box[-1] for box in boxes])
     return end_state
 
 
-def part2(data):
-    return 2
+def part2(boxes: list, moves: list) -> str:
+    for move in moves:
+        boxes = move_boxes2(boxes, move)
+    end_state = ''.join([box[-1] for box in boxes])
+    return end_state
 
 
 def main():
@@ -51,9 +61,9 @@ def main():
         data_raw = f.read()
 
     (length, boxes_list, moves_list) = make_tidy_data(data_raw)
-
-    print('part 1 solution: %s' % part1(length, boxes_list, moves_list))
-    # print('part 2 solution: %d' % part2(data))
+    print('part 1 solution: %s' % part1(boxes_list, moves_list))
+    (length, boxes_list, moves_list) = make_tidy_data(data_raw)
+    print('part 2 solution: %s' % part2(boxes_list, moves_list))
 
 
 if __name__ == "__main__":
