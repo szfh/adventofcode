@@ -14,35 +14,47 @@ def make_tidy_data(data_raw):
     return (numbers, boards4)
 
 
-def check_win_rows(boards: list, numbers: list):
-    for board_number, board in enumerate(boards):
-        for row in board:
-            if len(set(row) & set(numbers)) == 5:
-                return board_number
+def check_win(board: list, numbers: list) -> bool:
+    for row in board:
+        if len(set(row) & set(numbers)) == 5:
+            return True
+    for column_number in range(len(board[0])):
+        column = []
+        [column.append(board[row][column_number]) for row in range(len(board))]
+        if len(set(column) & set(numbers)) == 5:
+            return True
     return False
 
 
-def calculate_score(board, numbers):
-    winning_number = numbers[-1]
+def calculate_score(board: list, numbers: list) -> int:
+    last_number = numbers[-1]
     board_numbers = []
     for line in board:
         board_numbers += line
     remaining_numbers = set(board_numbers).difference(set(numbers))
-    score = winning_number * sum(remaining_numbers)
+    score = last_number * sum(remaining_numbers)
     return score
 
 
 def part1(numbers: list, boards: list):
     for k, n in enumerate(numbers):
-        winning_board = check_win_rows(boards, numbers[:k])
-        if winning_board == False:
-            continue
-        score = calculate_score(boards[winning_board], numbers[:k])
-        return score
+        for b, board in enumerate(boards):
+            if check_win(board, numbers[:k]) == True:
+                score = calculate_score(boards[b], numbers[:k])
+                return score
 
 
-def part2(data):
-    return 2
+def part2(numbers: list, boards: list):
+    winning_boards = []
+    while True:
+        for k, n in enumerate(numbers):
+            remaining_boards = set(range(len(boards))).difference(set(winning_boards))
+            for x in remaining_boards:
+                if check_win(boards[x], numbers[:k]):
+                    winning_boards.append(x)
+            if len(winning_boards) == (len(boards)):
+                score = calculate_score(boards[winning_boards[-1]], numbers[:k])
+                return score
 
 
 def main():
@@ -54,7 +66,7 @@ def main():
     (numbers, boards) = make_tidy_data(data_raw)
 
     print('part 1 solution: %d' % part1(numbers, boards))
-    # print('part 2 solution: %d' % part2(numbers, boards))
+    print('part 2 solution: %d' % part2(numbers, boards))
 
 
 if __name__ == "__main__":
