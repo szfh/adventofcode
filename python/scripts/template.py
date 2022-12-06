@@ -2,7 +2,6 @@ import os
 import sys
 
 sys.path.append(os.path.abspath("../scripts"))
-from aoc_functions import *
 
 
 def make_tidy_data(data_raw):
