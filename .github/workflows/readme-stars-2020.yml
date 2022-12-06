@@ -1,0 +1,22 @@
+name: Update README ⭐ 2020
+on:
+  push:
+    branches:
+        - main
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: k2bd/advent-readme-stars@v1
+        with:
+          userId: 1164527
+          leaderboardId: 1164527
+          sessionCookie: ${{ secrets.AOC_SESSION }}
+          tableMarker: <!--- advent_readme_stars table 2020 --->
+          year: 2020
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: update stars
