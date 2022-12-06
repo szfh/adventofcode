@@ -9,6 +9,13 @@ def make_tidy_data(data_raw):
     return data_raw
 
 
+def create_zip(data, n: int):
+    data_list = []
+    [data_list.append(data[i:]) for i in range(n)]
+    zipped_list = zip(*data_list)
+    return zipped_list
+
+
 def unique_values(line: tuple) -> bool:
     for c in itertools.combinations((line), 2):
         if c[0] == c[1]:
@@ -17,14 +24,19 @@ def unique_values(line: tuple) -> bool:
 
 
 def part1(data):
-    data_zip = zip(data[0:], data[1:], data[2:], data[3:])
-    for n, line in enumerate(data_zip):
+    n = 4
+    data_zip = create_zip(data, n)
+    for k, line in enumerate(data_zip):
         if unique_values(line):
-            return n + 4
+            return n + k
 
 
 def part2(data):
-    return 2
+    n = 14
+    data_zip = create_zip(data, n)
+    for k, line in enumerate(data_zip):
+        if unique_values(line):
+            return n + k
 
 
 def main():
