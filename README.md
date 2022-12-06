@@ -25,3 +25,7 @@ https://adventofcode.com/
 | [Day 3](https://adventofcode.com/2021/day/3) | ⭐ | ⭐ |
 | [Day 4](https://adventofcode.com/2021/day/4) | ⭐ |   |
 <!--- advent_readme_stars table 2021 --->
+
+<!--- advent_readme_stars table 2020 --->
+
+<!--- advent_readme_stars table 2019 --->
