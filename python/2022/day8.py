@@ -47,6 +47,41 @@ def check_clear_path(data: list, x_tree: int, y_tree: int) -> bool:
     return False
 
 
+def count_line(line: list, height: int) -> int:
+    visible_trees = 0
+    for tree in line:
+        visible_trees += 1
+        if tree >= height:
+            return visible_trees
+    return visible_trees
+
+
+def count_scenic_score(data: list, x_tree: int, y_tree: int) -> int:
+    height = data[y_tree][x_tree]
+    x_max = len(data)
+    y_max = len(data[0])
+    visible_trees = 1
+    for direction in ['up', 'down', 'left', 'right']:
+        match direction:
+            case 'up':
+                line = []
+                [line.append(data[y][x_tree]) for y in range(y_tree - 1, -1, -1)]
+                visible_trees *= count_line(line, height)
+            case 'down':
+                line = []
+                [line.append(data[y][x_tree]) for y in range(y_tree + 1, y_max)]
+                visible_trees *= count_line(line, height)
+            case 'left':
+                line = []
+                [line.append(data[y_tree][x]) for x in range(x_tree - 1, -1, -1)]
+                visible_trees *= count_line(line, height)
+            case 'right':
+                line = []
+                [line.append(data[y_tree][x]) for x in range(x_tree + 1, x_max)]
+                visible_trees *= count_line(line, height)
+    return visible_trees
+
+
 def part1(data):
     visible_trees = 0
     for x, y in itertools.product(range(len(data)), range(len(data[0]))):
@@ -56,7 +91,17 @@ def part1(data):
 
 
 def part2(data):
-    return 2
+    scenic_scores = []
+    for y in range(len(data)):
+        scenic_scores.append([])
+        for x in range(len(data[y])):
+            scenic_scores[y].append(count_scenic_score(data, x, y))
+
+    max_score = 0
+    for x, y in itertools.product(range(len(scenic_scores)), range(len(scenic_scores[0]))):
+        if scenic_scores[y][x] > max_score:
+            max_score = scenic_scores[y][x]
+    return max_score
 
 
 def main():
