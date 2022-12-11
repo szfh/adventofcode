@@ -61,7 +61,29 @@ def part1(data):
 
 
 def part2(data):
-    return 2
+    current_path = []
+    all_paths = set()
+    all_paths.add(tuple('/'))
+    files = []
+
+    for line in data:
+        line, current_path, all_paths, files = create_file_structure(line, current_path, all_paths, files)
+
+    folder_sizes = []
+    for folder_path in list(all_paths):
+        get_folder_sizes(folder_sizes, folder_path, files)
+
+    for f in folder_sizes:
+        if f['path'] == ('/',):
+            total_size = f['size']
+            min_delete_size = total_size - 40000000
+
+    size_to_delete = 40000000
+    for f in folder_sizes:
+        if (f['size'] >= min_delete_size) & (f['size'] < size_to_delete):
+            size_to_delete = f['size']
+
+    return size_to_delete
 
 
 def main():
