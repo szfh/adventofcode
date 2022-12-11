@@ -22,28 +22,28 @@ def move_tail(head_pos: tuple, tail_pos: tuple) -> tuple:
         return tail_pos
     x = head_pos[0] - tail_pos[0]
     y = head_pos[1] - tail_pos[1]
-    if x >= 1 and y >= 1:
+    if x > 0 and y > 0:
         new_x = tail_pos[0] + 1
         new_y = tail_pos[1] + 1
-    elif x >= 1 and y <= -1:
+    elif x > 0 and y < 0:
         new_x = tail_pos[0] + 1
         new_y = tail_pos[1] - 1
-    elif x <= -1 and y >= 1:
+    elif x < 0 and y > 0:
         new_x = tail_pos[0] - 1
         new_y = tail_pos[1] + 1
-    elif x <= -1 and y <= -1:
+    elif x < 0 and y < 0:
         new_x = tail_pos[0] - 1
         new_y = tail_pos[1] - 1
-    elif x >= 1 and y == 0:
+    elif x > 0 and y == 0:
         new_x = tail_pos[0] + 1
         new_y = tail_pos[1]
-    elif x <= -1 and y == 0:
+    elif x < 0 and y == 0:
         new_x = tail_pos[0] - 1
         new_y = tail_pos[1]
-    elif x == 0 and y >= 1:
+    elif x == 0 and y > 0:
         new_x = tail_pos[0]
         new_y = tail_pos[1] + 1
-    elif x == 0 and y <= -1:
+    elif x == 0 and y < 0:
         new_x = tail_pos[0]
         new_y = tail_pos[1] - 1
 
@@ -62,7 +62,15 @@ def part1(data):
 
 
 def part2(data):
-    return 2
+    knots = [(0, 0)] * 10
+    all_tail_positions = set()
+    for line in data:
+        for n in range(line[1]):
+            knots[0] = move_head(knots[0], line[0])
+            for n, k in enumerate(knots[1:], start=1):
+                knots[n] = move_tail(knots[n - 1], knots[n])
+            all_tail_positions.add(knots[-1])
+    return len(all_tail_positions)
 
 
 def main():
