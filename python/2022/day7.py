@@ -11,35 +11,46 @@ def make_tidy_data(data_raw):
     return data_split
 
 
+def create_file_structure(line, current_path, all_paths, files):
+    match line[0]:
+        case '$':
+            match line[1]:
+                case 'cd':
+                    match line[2]:
+                        case '..':
+                            current_path.pop()
+                        case _:
+                            current_path.append(line[2])
+                case 'ls':
+                    pass
+        case 'dir':
+            all_paths.add(tuple(current_path + list(line[1:2])))
+        case _:
+            files.append(copy.deepcopy({'name': line[1], 'size': int(line[0]), 'path': current_path}))
+    return (line, current_path, all_paths, files)
+
+
+def get_folder_sizes(folder_sizes, folder_path, files):
+    size = 0
+    for file in files:
+        if file['path'][0:len(folder_path)] == list(folder_path):
+            size += file['size']
+    folder_sizes.append(copy.deepcopy({'path': folder_path, 'size': size}))
+    return (folder_sizes, folder_path)
+
+
 def part1(data):
     current_path = []
     all_paths = set()
     all_paths.add(tuple('/'))
     files = []
+
     for line in data:
-        match line[0]:
-            case '$':
-                match line[1]:
-                    case 'cd':
-                        match line[2]:
-                            case '..':
-                                current_path.pop()
-                            case _:
-                                current_path.append(line[2])
-                    case 'ls':
-                        pass
-            case 'dir':
-                all_paths.add(tuple(current_path + list(line[1:2])))
-            case _:
-                files.append(copy.deepcopy({'name': line[1], 'size': int(line[0]), 'path': current_path}))
+        line, current_path, all_paths, files = create_file_structure(line, current_path, all_paths, files)
 
     folder_sizes = []
     for folder_path in list(all_paths):
-        size = 0
-        for file in files:
-            if file['path'][0:len(folder_path)] == list(folder_path):
-                size += file['size']
-        folder_sizes.append(copy.deepcopy({'path': folder_path, 'size': size}))
+        get_folder_sizes(folder_sizes, folder_path, files)
 
     total_file_size, max_folder_size = 0, 100000
     for f in folder_sizes:
