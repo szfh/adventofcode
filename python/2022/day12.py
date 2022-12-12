@@ -59,7 +59,23 @@ def part1(data):
 
 
 def part2(data):
-    return 2
+    path = [[1000 for char in range(len(data[0]))] for line in range(len(data))]
+    global start, end, alphabet
+    start, end = find_point(data, letter='S'), find_point(data, letter='E')
+    alphabet = {letter: number for number, letter in enumerate(string.ascii_lowercase)}
+    alphabet.update({'S': 0, 'E': 26})
+    current_step = 0
+    for y, line in enumerate(path):
+        for x, point in enumerate(line):
+            if alphabet[data[y][x]] == 0:
+                path[y][x] = 0
+    while path[end[1]][end[0]] == 1000:
+        for y, line in enumerate(path):
+            for x, point in enumerate(line):
+                if point == current_step:
+                    update_surrounding_points(data, path, x, y, current_step)
+        current_step += 1
+    return path[end[1]][end[0]]
 
 
 def main():
