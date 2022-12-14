@@ -22,17 +22,23 @@ def make_tidy_data(data_raw):
     return monkeys
 
 
-def perform_operation(value, operation):
+def perform_operation(value, operation, mode, lcm):
     if operation == 'new = old * old':
-        return value * value
+        new_value = value * value
     else:
         operator = operation.split(' ')[3]
         operand = int(operation.split(' ')[4])
         match operator:
             case '+':
-                return value + operand
+                new_value = value + operand
             case '*':
-                return value * operand
+                new_value = value * operand
+    if mode == 'div_three':
+        return new_value // 3
+    elif mode == 'mod':
+        return new_value % lcm
+    else:
+        return new_value
 
 
 def test_divisible(value, test):
@@ -48,12 +54,18 @@ def throw_item(throw):
     return monkey
 
 
+def get_multiplier(monkeys):
+    multiplier = 1
+    for m in monkeys:
+        multiplier *= int(m['test'].split(' ')[-1])
+    return multiplier
+
+
 def part1(monkeys):
     for turn in range(20):
         for m in monkeys:
             while len(m['items']) > 0:
-                m['items'][0] = perform_operation(m['items'][0], m['operation'])
-                m['items'][0] //= 3
+                m['items'][0] = perform_operation(m['items'][0], m['operation'], 'div_three', 0)
                 if test_divisible(m['items'][0], m['test']):
                     new_monkey = throw_item(m['true'])
                     item = m['items'].pop(0)
@@ -68,8 +80,24 @@ def part1(monkeys):
     return counts[0] * counts[1]
 
 
-def part2(data):
-    return 2
+def part2(monkeys):
+    lcm = get_multiplier(monkeys)
+    for turn in range(10000):
+        for m in monkeys:
+            while len(m['items']) > 0:
+                m['items'][0] = perform_operation(m['items'][0], m['operation'], 'mod', lcm)
+                if test_divisible(m['items'][0], m['test']):
+                    new_monkey = throw_item(m['true'])
+                    item = m['items'].pop(0)
+                    monkeys[new_monkey]['items'].append(item)
+                else:
+                    new_monkey = throw_item(m['false'])
+                    item = m['items'].pop(0)
+                    monkeys[new_monkey]['items'].append(item)
+                m['count'] += 1
+    counts = [m['count'] for m in monkeys]
+    counts.sort(reverse=True)
+    return counts[0] * counts[1]
 
 
 def main():
@@ -79,8 +107,8 @@ def main():
         data_raw = f.read()
 
     monkeys = make_tidy_data(data_raw)
-
     print('part 1 solution: %d' % part1(monkeys))
+    monkeys = make_tidy_data(data_raw)
     print('part 2 solution: %d' % part2(monkeys))
 
 
