@@ -12,22 +12,29 @@ def make_tidy_data(data_raw):
     return data_int
 
 
-def make_structure(data):
+def make_structure(data, add_floor=False):
     structure_points = set()
+    if add_floor:
+        temp_max_depth = 0
+        for l in data:
+            for c1, c2 in l:
+                if c2 > temp_max_depth:
+                    temp_max_depth = c2
+        data.append([(0, temp_max_depth + 2), (1000, temp_max_depth + 2)])
     for l in data:
         for c1, c2 in itertools.pairwise(l):
             x_points = range(min(c1[0], c2[0]), max(c1[0], c2[0]) + 1)  # not right if reversed direction
             y_points = range(min(c1[1], c2[1]), max(c1[1], c2[1]) + 1)
             [structure_points.add((x, y)) for x, y in itertools.product(x_points, y_points)]
-    return structure_points
-
-
-def draw_structure(structure_points, sand_points):
-    structure = []
     max_depth = 0
     for p in structure_points:
         if p[1] > max_depth:
             max_depth = p[1]
+    return (structure_points, max_depth)
+
+
+def draw_structure(structure_points, sand_points, max_depth):
+    structure = []
     for y in range(0, max_depth + 1):
         structure.append([])
         for x in range(0, 1001):
@@ -48,7 +55,7 @@ def drop_sand(structure_points, sand_points, count):
     points = structure_points.union(sand_points)
     while True:
         if current_position[1] == len(structure_points):
-            return (sand_points, count, True)
+            return (sand_points, count, True, False)
         elif (current_position[0], current_position[1] + 1) not in points:
             current_position = (current_position[0], current_position[1] + 1)
         elif (current_position[0] - 1, current_position[1] + 1) not in points:
@@ -58,22 +65,32 @@ def drop_sand(structure_points, sand_points, count):
         else:
             sand_points.add(current_position)
             count += 1
-            return (sand_points, count, False)
+            if current_position == (500, 0):
+                return (sand_points, count, False, True)
+            else:
+                return (sand_points, count, False, False)
 
 
 def part1(data):
-    structure_points = make_structure(data)
+    (structure_points, max_depth) = make_structure(data)
     sand_points = set()
     count = 0
     overflow = False
     while overflow == False:
-        (sand_points, count, overflow) = drop_sand(structure_points, sand_points, count)
-    structure = draw_structure(structure_points, sand_points)
+        (sand_points, count, overflow, _) = drop_sand(structure_points, sand_points, count)
+    structure = draw_structure(structure_points, sand_points, max_depth)
     return count
 
 
 def part2(data):
-    return 2
+    (structure_points, max_depth) = make_structure(data, True)
+    sand_points = set()
+    count = 0
+    blocked = False
+    while blocked == False:
+        (sand_points, count, _, blocked) = drop_sand(structure_points, sand_points, count)
+    structure = draw_structure(structure_points, sand_points, max_depth)
+    return count
 
 
 def main():
