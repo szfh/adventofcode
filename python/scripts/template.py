@@ -5,8 +5,8 @@ sys.path.append(os.path.abspath("../scripts"))
 
 
 def make_tidy_data(data_raw):
-    data_tidy = data_raw.splitlines()
-    return data_tidy
+    data1 = data_raw.splitlines()
+    return data1
 
 
 def part1(data):
