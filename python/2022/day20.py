@@ -37,7 +37,30 @@ def part1(data):
 
 
 def part2(data):
-    return 2
+    key = 811589153
+    for d in data:
+        d['value_initial'] = d['value']
+        d['value'] = d['value'] * key
+        d['value_mod'] = d['value'] % len(data)
+
+    for n in range(10):
+        for start_position, _ in enumerate(data):
+            for current_position, item in enumerate(data):
+                if item['start_position'] == start_position:
+                    new_position = (current_position + item['value']) % (len(data) - 1)
+                    if new_position == 0:
+                        new_position = len(data) - 1
+                    data.insert(new_position, data.pop(current_position))
+                    break
+
+    for i, item in enumerate(data):
+        if item['value'] == 0:
+            zero_index = i
+            break
+
+    values = [item['value'] for item in data]
+    return values[(1000 + zero_index) % len(data)] + values[(2000 + zero_index) % len(data)] + values[
+        (3000 + zero_index) % len(data)]
 
 
 def main():
@@ -47,8 +70,8 @@ def main():
         data_raw = f.read()
 
     data = make_tidy_data(data_raw)
-
     print('part 1 solution: %d' % part1(data))
+    data = make_tidy_data(data_raw)
     print('part 2 solution: %d' % part2(data))
 
 
