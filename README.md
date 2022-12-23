@@ -21,6 +21,7 @@ Star tables made with Github actions using [k2bd/advent-readme-stars](https://gi
 | [Day 10](https://adventofcode.com/2022/day/10) | ⭐ |   |
 | [Day 11](https://adventofcode.com/2022/day/11) | ⭐ | ⭐ |
 | [Day 12](https://adventofcode.com/2022/day/12) | ⭐ | ⭐ |
+| [Day 13](https://adventofcode.com/2022/day/13) | ⭐ |   |
 | [Day 14](https://adventofcode.com/2022/day/14) | ⭐ | ⭐ |
 | [Day 15](https://adventofcode.com/2022/day/15) | ⭐ |   |
 | [Day 18](https://adventofcode.com/2022/day/18) | ⭐ |   |
