@@ -4,6 +4,8 @@ https://adventofcode.com/
 
 Star tables made with Github actions using [k2bd/advent-readme-stars](https://github.com/k2bd/advent-readme-stars).
 
+<!--- advent_readme_stars table 2023 --->
+
 <!--- advent_readme_stars table 2022 --->
 ## 2022 Results
 
