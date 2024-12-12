@@ -33,6 +33,17 @@ def part1(data: list) -> int:
             safe_reports += 1
     return(safe_reports)
 
+def part2(data: list) -> int:
+    safe_reports = 0
+    for line in data:
+        line_length = len(line)
+        new_lines = itertools.combinations(line, line_length-1)
+        for new_line in new_lines:
+            if (all_increasing(new_line) | all_decreasing(new_line)) & differ_by_at_least_one_and_at_most_three(new_line):
+                safe_reports += 1
+                break
+    return(safe_reports)
+
 def main():
     file = os.path.abspath("./data/2024/day2.txt")
 
@@ -42,7 +53,7 @@ def main():
     data = make_tidy_data(data_raw)
 
     print('part 1 solution: %d' % part1(data))
-    #print('part 2 solution: %d' % part2(data))
+    print('part 2 solution: %d' % part2(data))
 
 if __name__ == "__main__":
     main()
