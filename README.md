@@ -5,11 +5,11 @@ https://adventofcode.com/
 Star tables made with Github actions using [k2bd/advent-readme-stars](https://github.com/k2bd/advent-readme-stars).
 
 <!--- advent_readme_stars table 2024 --->
-## 2023 Results
+## 2024 Results
 
 | Day | Part 1 | Part 2 |
 | :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2023/day/1) | ⭐ |   |
+| [Day 1](https://adventofcode.com/2024/day/1) | ⭐ | ⭐ |
 <!--- advent_readme_stars table 2024 --->
 
 <!--- advent_readme_stars table 2023 --->
