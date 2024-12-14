@@ -30,9 +30,19 @@ def check_for_xmas(data: list, position: list, direction: list) -> bool:
                 return(False)
         except:
             return(False)
-        if n == 3:
-           print('n = ', n, ' | letter = ', letter, ' | position = ', position, ' | direction = ', direction)
     return(True)
+
+def check_adjacent_letter(data,x,y,x_offset,y_offset) -> str:
+    if x+x_offset < 0:
+        return('error')
+    elif x+x_offset >= len(data):
+        return('error')
+    elif y+y_offset < 0:
+        return('error')
+    elif y+y_offset >= len(data[0]):
+        return('error')
+    else:
+        return(data[y+y_offset][x+x_offset])
 
 def part1(data: list) -> int:
     answers = 0
@@ -45,6 +55,18 @@ def part1(data: list) -> int:
 
     return(answers)
 
+def part2(data: list) -> int:
+    answers = 0
+    for y, line in enumerate(data):
+        for x, letter in enumerate(line):
+            nw_letter = check_adjacent_letter(data,x,y,x_offset=-1,y_offset=-1)
+            ne_letter = check_adjacent_letter(data,x,y,x_offset=1,y_offset=-1)
+            sw_letter = check_adjacent_letter(data,x,y,x_offset=-1,y_offset=1)
+            se_letter = check_adjacent_letter(data,x,y,x_offset=1,y_offset=1)
+            if (letter == 'A') & (((ne_letter == 'M') & (sw_letter == 'S')) | ((ne_letter == 'S') & (sw_letter == 'M'))) & (((nw_letter == 'M') & (se_letter == 'S')) | ((nw_letter == 'S') & (se_letter == 'M'))):
+                answers+=1
+    return(answers)
+
 def main():
     file = os.path.abspath("./data/2024/day4.txt")
 
@@ -54,6 +76,7 @@ def main():
     data = make_tidy_data(data_raw)
 
     print('part 1 solution: %d' % part1(data))
+    print('part 2 solution: %d' % part2(data))
 
 if __name__ == "__main__":
     main()
